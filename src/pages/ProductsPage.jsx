@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Header from "../components/Header";
 
 const apiURL = "https://fakestoreapi.com/products";
 
@@ -17,11 +16,9 @@ export default function ProductsPage() {
 
   return (
     <>
-      <Header />
-
       <main>
-        <div className=" py-5">
-          <h1 className="text-center my-2">Prodotti</h1>
+        <div className=" py-4">
+          <h1 className="text-center mb-4">Products</h1>
           <div className="productsList">
             {products.map((product) => (
               <div className="card my-4 productsCard" key={product.id}>
