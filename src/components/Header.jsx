@@ -27,12 +27,12 @@ export default function Header() {
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="#">
-                  Chi siamo
+                  Prodotti
                 </a>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="#">
-                  Prodotti
+                  Chi siamo
                 </a>
               </li>
             </ul>
