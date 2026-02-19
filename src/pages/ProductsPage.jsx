@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const apiURL = "https://fakestoreapi.com/products";
 
@@ -8,7 +9,23 @@ export default function ProductsPage() {
 
   const fetchProducts = () => {
     axios.get(apiURL).then((res) => {
-      getProducts(res.data);
+      const productsData = res.data.map((prod) => {
+        const title =
+          prod.title.length > 70
+            ? prod.title.substring(0, 66) + "..."
+            : prod.title;
+        const description =
+          prod.description.length > 50
+            ? prod.description.substring(0, 46) + "..."
+            : prod.description;
+
+        return {
+          ...prod,
+          title: title,
+          description: description,
+        };
+      });
+      getProducts(productsData);
     });
   };
 
@@ -20,35 +37,42 @@ export default function ProductsPage() {
         <div className=" py-4">
           <h1 className="text-center mb-4">Products</h1>
           <div className="productsList">
-            {products.map((product) => (
-              <div className="card my-4 productsCard" key={product.id}>
-                <div className="card-image">
-                  <img
-                    src={product.image}
-                    className="card-img-top"
-                    alt={product.title}
-                  />
-                </div>
-                <div className="card-body">
-                  <small className="text-body-secondary d-block my-1">
-                    {product.category}
-                  </small>
-                  <h5 className="card-title">{product.title}</h5>
-                </div>
-                <ul className="list-group list-group-flush">
-                  <li className="list-group-item">
+            {products.map((product, index) => (
+              <div className="card my-4 productsCard" key={index}>
+                <Link
+                  to={"/products/" + product.id}
+                  className="text-decoration-none link-body-emphasis"
+                >
+                  <div className="card-image">
+                    <img
+                      src={product.image}
+                      className="card-img-top"
+                      alt={product.title}
+                    />
+                  </div>
+                  <div className="card-body">
                     <small className="text-body-secondary d-block my-1">
-                      Description:{""}
+                      {product.category}
                     </small>
-                    <div className="descriptionText">{product.description}</div>
-                  </li>
-                  <li className="list-group-item">
-                    <small className="text-body-secondary d-block my-1">
-                      Price:{""}
-                    </small>
-                    € {product.price}
-                  </li>
-                </ul>
+                    <h5 className="card-title">{product.title}</h5>
+                  </div>
+                  <ul className="list-group list-group-flush">
+                    <li className="list-group-item">
+                      <small className="text-body-secondary d-block my-1">
+                        Description:{""}
+                      </small>
+                      <div className="descriptionText">
+                        {product.description}
+                      </div>
+                    </li>
+                    <li className="list-group-item">
+                      <small className="text-body-secondary d-block my-1">
+                        Price:{""}
+                      </small>
+                      € {product.price}
+                    </li>
+                  </ul>
+                </Link>
               </div>
             ))}
           </div>
