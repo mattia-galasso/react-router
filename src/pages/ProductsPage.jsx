@@ -14,15 +14,10 @@ export default function ProductsPage() {
           prod.title.length > 70
             ? prod.title.substring(0, 66) + "..."
             : prod.title;
-        const description =
-          prod.description.length > 50
-            ? prod.description.substring(0, 46) + "..."
-            : prod.description;
 
         return {
           ...prod,
           title: title,
-          description: description,
         };
       });
       getProducts(productsData);
@@ -57,14 +52,6 @@ export default function ProductsPage() {
                     <h5 className="card-title">{product.title}</h5>
                   </div>
                   <ul className="list-group list-group-flush">
-                    <li className="list-group-item">
-                      <small className="text-body-secondary d-block my-1">
-                        Description:{""}
-                      </small>
-                      <div className="descriptionText">
-                        {product.description}
-                      </div>
-                    </li>
                     <li className="list-group-item">
                       <small className="text-body-secondary d-block my-1">
                         Price:{""}
